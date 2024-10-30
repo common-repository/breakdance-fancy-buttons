@@ -1,0 +1,23 @@
+<div class="fancybuttondiv" id="fancybuttondiv">
+  <a href="{{ content.fancy_button.link }}" class="fancybutton">
+    {{ content.fancy_button.button_text | default('Click Here') }}
+  </a>
+</div>
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var fancyButtonDiv = document.getElementById('fancybuttondiv');
+  
+  if (fancyButtonDiv) {
+    fancyButtonDiv.addEventListener('click', function() {
+      var link = "{{ content.fancy_button.link }}";
+      window.location.href = link;
+    });
+  }
+});
+
+</script>

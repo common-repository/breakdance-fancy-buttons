@@ -1,0 +1,821 @@
+/* Common Styles */
+%%SELECTOR%% .fancybuttondiv {
+    {% if design.design.padding %}
+        {{ macros.spacing_complex(design.design.padding, 'padding') }};
+    {% else %}
+        padding: 14px 24px; /* Default padding */
+    {% endif %}
+    background-color: {{ design.design.background_color }};
+    box-shadow: {{ design.design.shadow.style }};
+    position: relative;
+    overflow: hidden;
+    {{ macros.border_complex(design.design.border) }};
+    cursor: pointer;
+    transition: all 0.3s ease;
+    {{ macros.border_radius(design.design.border_radius) }};
+    {{ macros.spacing_margin_all(design.margin) }};
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    box-shadow: {{ design.design.shadow_hover.style }};
+}
+
+%%SELECTOR%% .fancybutton {
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+%%SELECTOR%% a.fancybutton {
+    {{ macros.typography(design.design.typography, globalSettings) }};
+    color: {{ design.design.text_color }};
+    transition: color 0.3s ease; /* Transition for text color change */
+}
+
+%%SELECTOR%% .fancybuttondiv:hover a.fancybutton {
+    color: {% if design.design.text_color_hover %} {{ design.design.text_color_hover }} {% else %} #FFFFFF {% endif %};
+}
+
+/* Slide Over Effect */
+{% if content.fancy_button.select_effect == 'slideover' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    left: 0;
+}
+
+
+{% endif %}
+
+/* Slide Down Effect */
+{% if content.fancy_button.select_effect == 'slidedown' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    top: 0;
+}
+{% endif %}
+
+/* Diagonal Slide Effect */
+{% if content.fancy_button.select_effect == 'diagslide' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    top: 0;
+    left: 0;
+}
+{% endif %}
+
+/* Slide Up Effect */
+{% if content.fancy_button.select_effect == 'slideup' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    bottom: 0;
+}
+{% endif %}
+
+/* Border Expand Effect */
+{% if content.fancy_button.select_effect == 'borderexpand' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+{% endif %}
+
+/* Lift Door Effect */
+{% if content.fancy_button.select_effect == 'liftdoor' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    background-color: {{ design.design.background_color_hover|default('#333') }}; /* Set the initial background color to hover color */
+    overflow: hidden; /* Ensure pseudo-elements do not overflow */
+    z-index: 1; /* Ensure the button content is above the pseudo-elements */
+}
+
+%%SELECTOR%% .fancybuttondiv::before,
+%%SELECTOR%% .fancybuttondiv::after {
+    content: '';  /* Ensure the pseudo-elements have content */
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: {{ design.design.background_color|default('#3B82F6') }}; /* Set the background color of the pseudo-elements to the normal background color */
+    transition: all 0.5s ease;
+    z-index: 0; /* Ensure pseudo-elements are below the button content */
+}
+
+%%SELECTOR%% .fancybuttondiv::before {
+    left: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv::after {
+    right: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    left: -100%; /* Move completely out of view */
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    right: -100%; /* Move completely out of view */
+}
+{% endif %}
+
+/* Zoom In Effect */
+{% if content.fancy_button.select_effect == 'zoomin' %}
+%%SELECTOR%% .fancybuttondiv:hover {
+    transform: scale(1.1);
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+}
+{% endif %}
+
+/* Fade Effect */
+{% if content.fancy_button.select_effect == 'fade' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    opacity: 1;
+}
+{% endif %}
+
+/* Ripple Effect */
+{% if content.fancy_button.select_effect == 'ripple' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    width: 200%;
+    height: 200%;
+}
+{% endif %}
+
+/* Rotate Effect */
+{% if content.fancy_button.select_effect == 'rotate' %}
+%%SELECTOR%% .fancybuttondiv {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    transform: rotate({{ content.fancy_button.rotate_amount }}deg);
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+}
+{% endif %}
+
+/* Glowing Effect */
+{% if content.fancy_button.select_effect == 'glow' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    background-color: {{ design.design.background_color|default('#3B82F6') }}; /* Set the initial background color */
+    color: {{ design.design.text_color|default('#000') }}; /* Set the initial text color */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.5s ease;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+ 
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    box-shadow: 0 0 20px {{ design.design.background_color_hover|default('#00f') }}; /* Glowing effect color */
+    transition: all 0.5s ease;
+    animation: glow 1.5s infinite alternate;
+}
+
+%%SELECTOR%% .fancybuttondiv::before,
+%%SELECTOR%% .fancybuttondiv::after {
+    content: '';  /* Ensure the pseudo-elements have content */
+    position: absolute;
+  
+    border-radius: 5px; /* Match button border radius if any */
+    box-shadow: 0 0 20px {{ design.design.background_color_hover|default('#00f') }}; /* Glowing effect color */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1; /* Ensure pseudo-elements are below the button content */
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before,
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    opacity: 1;
+}
+
+/* Keyframes for the glowing effect */
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px {{ design.design.background_color_hover|default('#00f') }};
+    }
+    to {
+        box-shadow: 0 0 25px {{ design.design.background_color_hover|default('#00f') }};
+    }
+}
+{% endif %}
+
+
+/* Angle In Effect with Bounce */
+{% if content.fancy_button.select_effect == 'anglein' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+}
+
+%%SELECTOR%% .fancybutton {
+    position: relative;
+    z-index: 2; /* Ensure the text is above the pseudo-elements */
+    display: inline-block;
+ 
+    text-decoration: none;
+    color: inherit;
+}
+
+%%SELECTOR%% .fancybuttondiv::after {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transform-origin: bottom left;
+    transform: translate3D(-50%, 0, 0) rotate(-45deg);
+    transition: transform 0.5s cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    transform: translate3D(0, 0, 0) rotate(0deg);
+}
+{% endif %}
+
+
+
+/* Curtain Down Effect */
+{% if content.fancy_button.select_effect == 'curtaindown' %}
+%%SELECTOR%% .fancybuttondiv {
+   
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+}
+
+%%SELECTOR%% .fancybuttondiv::before,
+%%SELECTOR%% .fancybuttondiv::after {
+    content: '';  /* Ensure the pseudo-elements have content */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.5s ease;
+    z-index: 0; /* Ensure pseudo-elements are below the button content */
+}
+
+%%SELECTOR%% .fancybuttondiv::before {
+    transform: translate3D(0, -100%, 0);
+}
+
+%%SELECTOR%% .fancybuttondiv::after {
+    transform: translate3D(0, 100%, 0);
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    transform: translate3D(0, -50%, 0);
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    transform: translate3D(0, 50%, 0);
+}
+{% endif %}
+/* Bounce Down Effect */
+{% if content.fancy_button.select_effect == 'bouncedown' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: top 0.5s cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    top: 0;
+}
+{% endif %}
+
+/* Bounce Left Effect */
+{% if content.fancy_button.select_effect == 'bounceleft' %}
+%%SELECTOR%% .fancybuttondiv::before {
+    content: '';  /* Ensure the pseudo-element has content */
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: left 0.5s cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    z-index: 0;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    left: 0;
+}
+{% endif %}
+
+/* Double Angle In Effect */
+{% if content.fancy_button.select_effect == 'angleindouble' %}
+%%SELECTOR%% .fancybuttondiv {
+   
+    
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+}
+
+%%SELECTOR%% .fancybuttondiv::before,
+%%SELECTOR%% .fancybuttondiv::after {
+    content: '';  /* Ensure the pseudo-elements have content */
+    position: absolute;
+    top: 0;
+    width: 150%;
+    height: 100%;
+    background: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.5s ease;
+    z-index: 0; /* Ensure pseudo-elements are below the button content */
+}
+
+%%SELECTOR%% .fancybuttondiv::before {
+    left: 0;
+    transform-origin: 0 bottom;
+    transform: translateX(-100%) rotate(-30deg);
+}
+
+%%SELECTOR%% .fancybuttondiv::after {
+    right: 0;
+    transform-origin: right bottom;
+    transform: translateX(100%) rotate(30deg);
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    left: 0;
+    transform: rotate(0deg);
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    right: 0;
+    transform: rotate(0deg);
+}
+{% endif %}
+
+/* Double Take Effect */
+{% if content.fancy_button.select_effect == 'doubletake' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+}
+
+%%SELECTOR%% .fancybuttondiv::before,
+%%SELECTOR%% .fancybuttondiv::after {
+    content: '';  /* Ensure the pseudo-elements have content */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background:  {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.25s ease;
+    z-index: 0; /* Ensure pseudo-elements are below the button content */
+    transform-origin: 0 bottom;
+    transform: translate3D(-50%, 0, 0) rotate(-50deg);
+}
+
+%%SELECTOR%% .fancybuttondiv::before {
+    opacity: 0.2;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before {
+    transform: rotate(0deg);
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    transform: rotate(0deg);
+    transition-delay: 0.25s;
+}
+{% endif %}
+
+/* Radial Gradient Expand Effect */
+{% if content.fancy_button.select_effect == 'radialexpand' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    overflow: hidden;
+   
+    color: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.3s ease;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    color: #fff;
+    transition-delay: 0.2s;
+    animation: ani500 0.6s forwards;
+    background: radial-gradient(circle, {{ design.design.background_color_hover|default('#333') }} 0.2em, transparent 0.3em) 6em 6em/1em 1em,
+      radial-gradient(circle, {{ design.design.background_color_hover|default('#333') }} 0.2em, transparent 0.3em) 0 0/1em 1em;
+}
+
+/* Keyframes for the radial gradient animation */
+@keyframes ani500 {
+  100% {
+    background-size: 2.375em 2.375em, 0.1em 0.1em;
+  }
+}
+{% endif %}
+
+/* Slide Over Top and Bottom Effect */
+{% if content.fancy_button.select_effect == 'slideovertopbottom' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    overflow: hidden;
+    background-color: {{ design.design.background_color_hover|default('#333') }}
+    color: #484848;
+    transition: all 0.3s ease;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+}
+
+%%SELECTOR%% .fancybuttondiv span {
+    position: relative;
+    z-index: 2;
+}
+
+%%SELECTOR%% .fancybutton {z-index:2;}
+
+%%SELECTOR%% .fancybuttondiv::before,
+%%SELECTOR%% .fancybuttondiv::after {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    left: 0;
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+    transition: all 0.25s ease;
+    content: "";
+    z-index: 0; /* Ensure pseudo-elements are below the button content */
+}
+
+%%SELECTOR%% .fancybuttondiv::before {
+    top: 0;
+    transform: translate(-100%, 0);
+}
+
+%%SELECTOR%% .fancybuttondiv::after {
+    bottom: 0;
+    transform: translate(100%, 0);
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    color: #fff;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before,
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    transform: translate(0, 0);
+}
+{% endif %}
+
+/* Expanding Border Effect */
+{% if content.fancy_button.select_effect == 'insetshadow' %}
+%%SELECTOR%% .fancybuttondiv {
+    
+    position: relative;
+    background: {{ design.design.background_color }};
+    
+    {{ macros.border_complex(design.design.border) }};
+    transition: all 1s;
+    display: inline-block
+      margin: 0; /* Ensure no extra margin */
+    text-decoration: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+%%SELECTOR%% .fancybutton {
+    color: {{ design.design.text_color }};
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    z-index: 2; /* Ensure the text is above any pseudo-elements */
+  margin: 0; /* Ensure no extra margin */
+}
+
+%%SELECTOR%% .fancybuttondiv::after,
+%%SELECTOR%% .fancybuttondiv::before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border: 0px solid #000;
+    transition: all 1s;
+}
+
+%%SELECTOR%% .fancybuttondiv::after {
+    top: -1px;
+    left: -1px;
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+}
+
+%%SELECTOR%% .fancybuttondiv::before {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    {{ macros.border_complex('none') }}; /* Remove border on hover */
+    background: {{ design.design.background_color_hover|default('#333') }};
+    
+}
+
+%%SELECTOR%% .fancybuttondiv:hover::before,
+%%SELECTOR%% .fancybuttondiv:hover::after {
+    width: 100%;
+    height: 100%;
+    border-color: black;
+}
+{% endif %}
+
+/* Marquee Text Scroll Effect */
+{% if content.fancy_button.select_effect == 'marquee' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    z-index: 1; /* Ensure the button content is above any pseudo-elements */
+    background-color: {{ design.design.background_color|default('#fff') }};
+}
+
+%%SELECTOR%% .fancybuttondiv a {
+    display: inline-block;
+    position: relative;
+    left: 0; /* Start position */
+    color: {{ design.design.text_color|default('#333') }};
+    transition: all 0.3s ease;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+}
+
+%%SELECTOR%% .fancybuttondiv:hover a {
+    animation: marquee   {{ content.fancy_button.marquee_speed }}s linear infinite; /* Adjust the duration (10s) to change the speed */
+    color: {{ design.design.text_color_hover|default('#fff') }};
+}
+
+/* Keyframes for the marquee animation */
+@keyframes marquee {
+    0% {
+        transform: translateX(100%); /* Start fully off the right */
+    }
+    100% {
+        transform: translateX(-130%); /* Fully off the left */
+    }
+}
+{% endif %}
+
+/* Typing Effect */
+{% if content.fancy_button.select_effect == 'typing' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+%%SELECTOR%% .fancybuttondiv a {
+    display: inline-block;
+    position: relative;
+    color: {{ design.design.text_color|default('#333') }};
+    animation: typing {{ content.fancy_button.typing_speed|default('5') }}s steps(30, end) infinite, blink 0.75s step-end infinite;
+    overflow: hidden;
+    border-right: 2px solid {{ design.design.text_color|default('#333') }};
+    white-space: nowrap;
+    font-size: 1.5em;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover a {
+    animation: none; /* Stop the animation on hover */
+    color: {{ design.design.text_color_hover|default('#fff') }};
+    border-right: none; /* Remove the cursor on hover */
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+}
+
+/* Keyframes for the typing effect */
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    50%, 100% {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    from, to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: {{ design.design.text_color|default('#333') }};
+    }
+}
+{% endif %}
+
+
+
+/* Wobble Effect */
+{% if content.fancy_button.select_effect == 'wobble' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+%%SELECTOR%% .fancybuttondiv a {
+    display: inline-block;
+    position: relative;
+    color: {{ design.design.text_color|default('#333') }};
+    transition: color 0.3s ease;
+    z-index: 1;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    animation: wobble 0.5s ease-in-out;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover a {
+    color: {{ design.design.text_color_hover|default('#fff') }};
+    animation: text-wobble 0.5s ease-in-out;
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+}
+
+/* Keyframes for the wobble effect */
+@keyframes wobble {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(-3deg);
+    }
+}
+
+/* Keyframes for the text wobble effect */
+@keyframes text-wobble {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-3px);
+    }
+    50% {
+        transform: translateX(3px);
+    }
+    75% {
+        transform: translateX(-2px);
+    }
+}
+{% endif %}
+
+/* Marquee Effect 2 */
+{% if content.fancy_button.select_effect == 'marquee2' %}
+%%SELECTOR%% .fancybuttondiv {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+
+}
+
+%%SELECTOR%% .fancybuttondiv a {
+    display: block;
+    position: relative;
+    color: {{ design.design.text_color|default('#333') }};
+    animation: marquee {{  content.fancy_button.marquee_speed_2 }}s linear infinite;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+%%SELECTOR%% .fancybuttondiv:hover a {
+    animation: none; /* Stop the animation on hover */
+    color: {{ design.design.text_color_hover|default('#fff') }};
+}
+
+%%SELECTOR%% .fancybuttondiv:hover {
+    background-color: {{ design.design.background_color_hover|default('#333') }};
+}
+
+/* Keyframes for the marquee effect */
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-140%);
+    }
+}
+{% endif %}
+
